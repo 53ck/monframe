@@ -1,0 +1,149 @@
+/**
+ * MonFrame
+ * Small library for creating Mongolian script type on the web.
+ * https://github.com/53ck/monframe
+ * Copyright 2016, Bilguun
+ */
+
+
+/**
+ * Variables
+ */
+$base-font-size     : 24px !default
+$base-line-height   : 30px !default
+
+$h1-size            : 54px !default
+$h2-size            : 48px !default
+$h3-size            : 42px !default
+$h4-size            : 36px !default
+$h5-size            : 30px !default
+$h6-size            : 26px !default
+
+$indented-paragraphs: false !default
+$show-baseline      : true !default
+
+$magic-number       : $base-line-height
+$magic-ratio        : $base-line-height / $base-font-size
+
+
+/**
+ * Mixins
+ */
+=font-size($font-size, $line-height: true)
+	font-size: $font-size
+	font-size: ($font-size / $base-font-size) * 1rem
+
+	@if $line-height == true
+		line-height: ceil($font-size / $base-line-height) * ($base-line-height / $font-size)
+
+=spacer($property, $num: 2)
+	#{$property}: $num * $magic-number
+	#{$property}: $num * $magic-ratio + rem
+
+@function strip($num)
+	@return $num / ($num * 0 + 1)
+
+%rhythm
+	margin-right: $magic-number
+	margin-right: $magic-ratio + rem
+
+
+/**
+ * Base
+ */
+html
+	font-size: $base-font-size / 16px + rem
+	line-height: $magic-ratio
+	-ms-text-size-adjust: 100%
+	-webkit-text-size-adjust: 100%
+
+	@if $show-baseline == true
+		background-image: linear-gradient(to right, #eee 0, transparent 1px)
+		background-repeat: repeat-x
+		background-size: $magic-number 100%
+
+body
+	margin: 0
+	overflow-y: hidden
+  overflow-x: auto
+	writing-mode: vertical-lr
+	-webkit-text-orientation: sideways-right
+	text-orientation: sideways-right
+
+a
+	text-decoration: overline
+
+h1, h2, h3, h4, h5, h6
+	font-family: inherit
+	font-weight: 500
+	margin-left: 0
+	@extend %rhythm
+
+h1
+	+font-size($h1-size)
+
+h2
+	+font-size($h2-size)
+
+h3
+	+font-size($h3-size)
+
+h4
+	+font-size($h4-size)
+
+h5
+	+font-size($h5-size)
+
+h6
+	+font-size($h6-size)
+
+ul, ol, dd
+	padding: 0
+	margin-left: 0
+	@extend %rhythm
+	+spacer(margin-top)
+
+li > ul,
+li > ol
+	margin-right: 0
+
+p
+	margin-left: 0
+	margin-right: $magic-ratio + rem
+	@if $indented-paragraphs == true
+		+spacer(text-indent, 1)
+
+blockquote
+	margin: 0
+	font-size: $h6-size
+	line-height: $base-line-height
+	+spacer(margin-top, 1)
+
+hr
+	+spacer(margin-left, 1)
+	@extend %rhythm
+
+table
+	border-collapse: collapse
+	border-spacing: 0
+	height: 100%
+	@extend %rhythm
+
+th,
+td
+	padding: $base-line-height / 2
+
+th
+	text-align: left
+
+input,
+button,
+select,
+textarea
+	padding: 0
+	display: table-cell
+	font-size: $base-font-size
+
+input[type=submit],
+button
+	cursor: pointer

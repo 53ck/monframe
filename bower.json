@@ -1,0 +1,20 @@
+{
+  "name": "MonFrame",
+  "version": "1.0.0",
+  "author": "Bilguun",
+  "homepage": "http://53ck.github.io/monframe",
+  "description": "Small library for creating Mongolian script type on the web.",
+  "main": "monframe.sass",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/53ck/monframe.git"
+  },
+  "keywords": [
+    "bilguun",
+    "sass",
+    "Mongolian script",
+    "Mongol script",
+    "Mongol bichig"
+  ],
+  "license": "MIT"
+}
